@@ -20,17 +20,21 @@ A curated set of **agents, skills, commands, and hooks** for [Claude Code](https
 
 ## Quick Start
 
+### Install via Plugin Marketplace (Recommended)
+
 ```bash
-# Clone the repository
-git clone https://github.com/Dokkabei97/forged-claude-code.git
+# Add marketplace (one-time)
+/plugin marketplace add Dokkabei97/claude-plugins
 
-# Copy plugins to your project's .claude directory
-cp -r forged-claude-code/agents/ your-project/.claude/agents/
-cp -r forged-claude-code/skills/ your-project/.claude/skills/
-cp -r forged-claude-code/commands/ your-project/.claude/commands/
+# Install forged-claude-code
+/plugin install forged-claude-code
+```
 
-# Or symlink for easier updates
-ln -s $(pwd)/forged-claude-code/agents/ your-project/.claude/agents
+### Install Directly
+
+```bash
+# Install from GitHub
+/plugin install Dokkabei97/forged-claude-code
 ```
 
 ## Plugin Map

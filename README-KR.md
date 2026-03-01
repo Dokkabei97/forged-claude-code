@@ -20,17 +20,21 @@
 
 ## 빠른 시작
 
+### 플러그인 마켓플레이스로 설치 (권장)
+
 ```bash
-# 저장소 클론
-git clone https://github.com/Dokkabei97/forged-claude-code.git
+# 마켓플레이스 등록 (최초 1회)
+/plugin marketplace add Dokkabei97/claude-plugins
 
-# 프로젝트의 .claude 디렉토리에 플러그인 복사
-cp -r forged-claude-code/agents/ your-project/.claude/agents/
-cp -r forged-claude-code/skills/ your-project/.claude/skills/
-cp -r forged-claude-code/commands/ your-project/.claude/commands/
+# forged-claude-code 설치
+/plugin install forged-claude-code
+```
 
-# 또는 심볼릭 링크로 연결 (업데이트 편의)
-ln -s $(pwd)/forged-claude-code/agents/ your-project/.claude/agents
+### 직접 설치
+
+```bash
+# GitHub에서 직접 설치
+/plugin install Dokkabei97/forged-claude-code
 ```
 
 ## 플러그인 맵

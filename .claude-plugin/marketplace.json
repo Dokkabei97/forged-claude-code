@@ -1,0 +1,39 @@
+{
+  "name": "forged-claude-code",
+  "owner": {
+    "name": "Dokkabei97",
+    "email": "wkdrn970@gmail.com"
+  },
+  "metadata": {
+    "description": "Startup founding & operations toolkit for Claude Code — 53 plugins across CTO, CPO, COO, CMO domains",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "forged-claude-code",
+      "source": "./",
+      "description": "Startup toolkit with 9 agents, 29 skills, 14 commands, and 1 hook for founding and running startups",
+      "version": "1.0.0",
+      "category": "startup",
+      "keywords": [
+        "startup",
+        "founder",
+        "MVP",
+        "growth",
+        "fundraising",
+        "product",
+        "operations",
+        "marketing",
+        "CTO",
+        "CPO",
+        "COO",
+        "CMO",
+        "OKR",
+        "pitch-deck",
+        "landing-page"
+      ],
+      "license": "MIT",
+      "homepage": "https://github.com/Dokkabei97/forged-claude-code"
+    }
+  ]
+}

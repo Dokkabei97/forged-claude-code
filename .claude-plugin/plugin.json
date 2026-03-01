@@ -1,0 +1,11 @@
+{
+  "name": "forged-claude-code",
+  "version": "1.0.0",
+  "description": "Startup founding & operations toolkit for Claude Code — 53 plugins across CTO, CPO, COO, CMO domains covering MVP to growth",
+  "author": {
+    "name": "Dokkabei97",
+    "url": "https://github.com/Dokkabei97"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/Dokkabei97/forged-claude-code"
+}

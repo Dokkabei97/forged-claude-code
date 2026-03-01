@@ -1,0 +1,17 @@
+### IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+### OS files
+.DS_Store
+Thumbs.db
+
+### Node
+node_modules/
+
+### Environment
+.env
+.env.local
+.env.*.local

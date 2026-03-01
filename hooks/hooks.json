@@ -1,0 +1,39 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/scripts/check-setup.sh",
+            "timeout": 10000
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "tool == \"Bash\" && tool_input.command matches \"git (commit|push|add)\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const{execSync}=require('child_process');let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const cmd=i.tool_input?.command||'';if(/git\\s+(commit|add)/.test(cmd)){try{const diff=execSync('git diff --cached --diff-filter=ACM',{encoding:'utf8',timeout:10000});const patterns=[{name:'AWS Access Key',re:/AKIA[0-9A-Z]{16}/},{name:'AWS Secret Key',re:/['\\\"][0-9a-zA-Z\\/+]{40}['\\\"]/},{name:'Generic API Key',re:/['\\\"]?(api[_-]?key|apikey|api[_-]?secret)['\\\"]?\\s*[:=]\\s*['\\\"][a-zA-Z0-9_\\-]{20,}['\\\"]/i},{name:'Private Key',re:/-----BEGIN (RSA |EC |DSA )?PRIVATE KEY-----/},{name:'Generic Secret',re:/['\\\"]?(secret|password|passwd|pwd|token|auth[_-]?token|access[_-]?token)['\\\"]?\\s*[:=]\\s*['\\\"][^'\\\"]{8,}['\\\"]/i},{name:'Database URL',re:/['\\\"]?(postgres|mysql|mongodb|redis):\\/\\/[^\\s'\\\"]{10,}/i},{name:'JWT Token',re:/eyJ[a-zA-Z0-9_-]{10,}\\.eyJ[a-zA-Z0-9_-]{10,}/},{name:'Slack Token',re:/xox[bpras]-[0-9a-zA-Z-]{10,}/},{name:'GitHub Token',re:/gh[ps]_[a-zA-Z0-9]{36,}/}];const found=[];patterns.forEach(p=>{if(p.re.test(diff)){found.push(p.name)}});if(found.length>0){console.error('[Secret Scanner] BLOCKED: Potential secrets detected in staged files!');found.forEach(s=>console.error('  - '+s));console.error('[Secret Scanner] Review staged changes and remove secrets before committing.');console.error('[Secret Scanner] Use .env files for secrets and ensure they are in .gitignore');process.exit(1)}else{console.error('[Secret Scanner] No secrets detected in staged changes.')}}catch(e){if(e.status===1){console.error('[Secret Scanner] '+e.message)}}}console.log(d)})\"",
+            "timeout": 15000
+          }
+        ],
+        "description": "Scans staged files for hardcoded secrets (API keys, tokens, passwords, private keys) before git commit/push and blocks if found"
+      },
+      {
+        "matcher": "tool == \"Write\" && tool_input.file_path matches \"\\\\.(env|env\\\\.local|env\\\\.production)$\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"console.error('[Secret Scanner] WARNING: Writing to .env file detected');console.error('[Secret Scanner] Ensure this file is in .gitignore');console.error('[Secret Scanner] Never commit .env files with real secrets')\""
+          }
+        ],
+        "description": "Warn when writing to .env files to prevent accidental secret exposure"
+      }
+    ]
+  }
+}
